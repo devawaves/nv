@@ -1,9 +1,14 @@
-**This repo is supposed to used as config by NvChad users!**
+This repo is meant to be my personal neovim config, meaning you (most likely) will not like my choices on how to configure my setup.
 
-- The main nvchad repo (NvChad/NvChad) is used as a plugin by this repo.
-- So you just import its modules , like `require "nvchad.options" , require "nvchad.mappings"`
-- So you can delete the .git from this repo ( when you clone it locally ) or fork it :)
+All keymaps are under `lua/mappings/`.
+
+All plugin definitions are under `lua/plugins/`.
+
+All plugin configurations are under `lua/configs/`.
+
+- [ ] TODO: compile a feature list
 
 # Credits
 
-1) Lazyvim starter https://github.com/LazyVim/starter as nvchad's starter was inspired by Lazyvim's . It made a lot of things easier!
+1) [NVChad starter](https://github.com/NvChad/starter) because it's what this config is based off of.
+2) [Pynappo's keymaps setup](https://github.com/pynappo/dotfiles/blob/44fae21f47aa8c28d78deef3e1d4c59571f16bdb/.config/nvim/lua/pynappo/keymaps/init.lua)

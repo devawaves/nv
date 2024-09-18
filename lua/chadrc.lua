@@ -5,13 +5,35 @@
 ---@type ChadrcConfig
 local M = {}
 
-M.base46 = {
-	theme = "onedark",
+M.lsp = {
+  signature = true
+}
 
-	-- hl_override = {
-	-- 	Comment = { italic = true },
-	-- 	["@comment"] = { italic = true },
-	-- },
+M.base46 = {
+	theme = "chadtain",
+  -- integrations = {
+  --   'neogit',
+  --   'whichkey',
+  --   'cmp'
+  -- },
+
+	hl_override = {
+		Comment = { italic = true },
+		["@comment"] = { italic = true },
+	},
+}
+
+M.ui = {
+  cmp = {
+    style = "atom_colored",
+  },
+  telescope = {
+    style = "borderless"
+  },
+  statusline = {
+    theme = "default",
+    separator_style = "default"
+  }
 }
 
 return M

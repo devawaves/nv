@@ -11,6 +11,26 @@ return {
     },
   },
 
+  git = {
+    log = { "--since=3 days ago" }, -- show commits from 3 days ago
+    timeout = 90, -- seconds
+  },
+  ---@diagnostic disable-next-line: assign-type-mismatch
+  dev = {
+    fallback = true,
+    path = "~/src/nvim",
+    ---@type string[] plugins that match these patterns will use your local versions instead of being fetched from GitHub
+    patterns = { "waves" },
+  },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    enabled = true,
+    notify = false,
+  },
+
   performance = {
     rtp = {
       disabled_plugins = {
@@ -43,5 +63,12 @@ return {
         "ftplugin",
       },
     },
+  },
+
+  diff = { cmd = "diffview.nvim" },
+  readme = {
+    root = vim.fn.stdpath "state" .. "/lazy/readme",
+    files = { "README.md" },
+    skip_if_doc_exists = true,
   },
 }
