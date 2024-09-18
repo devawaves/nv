@@ -1,6 +1,6 @@
 vim.g.base46_cache = vim.fn.stdpath "data" .. "/nvchad/base46/"
-vim.g.mapleader = " "                                 -- change leader to a space
-vim.g.maplocalleader = ","                            -- change localleader to a space
+vim.g.mapleader = " "      -- change leader to a space
+vim.g.maplocalleader = "," -- change localleader to a space
 
 -- bootstrap lazy and all plugins
 local lazypath = vim.fn.stdpath "data" .. "/lazy/lazy.nvim"

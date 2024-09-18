@@ -39,7 +39,7 @@ return {
     },
   },
   branch = "perf",
-  opts = function ()
+  opts = function()
     local conf = require 'nvchad.configs.cmp'
     conf.mapping = require('mappings').cmp.insert()
     return conf

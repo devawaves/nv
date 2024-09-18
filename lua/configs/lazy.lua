@@ -13,7 +13,7 @@ return {
 
   git = {
     log = { "--since=3 days ago" }, -- show commits from 3 days ago
-    timeout = 90, -- seconds
+    timeout = 90,                   -- seconds
   },
   ---@diagnostic disable-next-line: assign-type-mismatch
   dev = {

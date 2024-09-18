@@ -86,7 +86,7 @@ return {
       },
     },
     { "Bilal2453/luvit-meta", lazy = true }, -- optional `vim.uv` typings
-    { -- optional completion source for require statements and module annotations
+    {                                        -- optional completion source for require statements and module annotations
       "yioneko/nvim-cmp",
       opts = function(_, opts)
         opts.sources = opts.sources or {}
@@ -109,7 +109,7 @@ return {
     cmd = "TSJToggle",
     config = function()
       require("treesj").setup({ use_default_keymaps = false })
-      vim.keymap.set('n', 'gJ', vim.cmd.TSJToggle, { desc = "Split/join line"} )
+      vim.keymap.set('n', 'gJ', vim.cmd.TSJToggle, { desc = "Split/join line" })
     end,
   },
   {
@@ -134,15 +134,23 @@ return {
         },
       })
 
-      vim.keymap.set('n', '<C-a>', function() return require("dial.map").inc_normal() end, { expr = true, noremap = true })
-      vim.keymap.set('n', '<C-x>', function() return require("dial.map").dec_normal() end, { expr = true, noremap = true })
-      vim.keymap.set('n', 'g<C-a>', function() return require("dial.map").inc_gnormal() end, { expr = true, noremap = true })
-      vim.keymap.set('n', 'g<C-x>', function() return require("dial.map").dec_gnormal() end, { expr = true, noremap = true })
+      vim.keymap.set('n', '<C-a>', function() return require("dial.map").inc_normal() end,
+        { expr = true, noremap = true })
+      vim.keymap.set('n', '<C-x>', function() return require("dial.map").dec_normal() end,
+        { expr = true, noremap = true })
+      vim.keymap.set('n', 'g<C-a>', function() return require("dial.map").inc_gnormal() end,
+        { expr = true, noremap = true })
+      vim.keymap.set('n', 'g<C-x>', function() return require("dial.map").dec_gnormal() end,
+        { expr = true, noremap = true })
 
-      vim.keymap.set('v', '<C-a>', function() return require("dial.map").inc_visual() end, { expr = true, noremap = true })
-      vim.keymap.set('v', '<C-x>', function() return require("dial.map").dec_visual() end, { expr = true, noremap = true })
-      vim.keymap.set('v', 'g<C-a>', function() return require("dial.map").inc_gvisual() end, { expr = true, noremap = true })
-      vim.keymap.set('v', 'g<C-x>', function() return require("dial.map").dec_gvisual() end, { expr = true, noremap = true })
+      vim.keymap.set('v', '<C-a>', function() return require("dial.map").inc_visual() end,
+        { expr = true, noremap = true })
+      vim.keymap.set('v', '<C-x>', function() return require("dial.map").dec_visual() end,
+        { expr = true, noremap = true })
+      vim.keymap.set('v', 'g<C-a>', function() return require("dial.map").inc_gvisual() end,
+        { expr = true, noremap = true })
+      vim.keymap.set('v', 'g<C-x>', function() return require("dial.map").dec_gvisual() end,
+        { expr = true, noremap = true })
     end,
   },
 
@@ -172,11 +180,11 @@ return {
         -- include this if you have set `show_modified` to `true`
         -- "BufModifiedSet",
       }, {
-          group = vim.api.nvim_create_augroup("barbecue.updater", {}),
-          callback = function()
-            require("barbecue.ui").update()
-          end,
-        })
+        group = vim.api.nvim_create_augroup("barbecue.updater", {}),
+        callback = function()
+          require("barbecue.ui").update()
+        end,
+      })
     end,
   },
   -- persist sessions

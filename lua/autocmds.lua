@@ -4,10 +4,10 @@ local autocmds = {}
 function autocmds.create_wrapper(augroup_name)
   local augroup = vim.api.nvim_create_augroup(augroup_name, { clear = true })
   return function(event, opts)
-    opts.group = opts.group or augroup
-    return vim.api.nvim_create_autocmd(event, opts)
-  end,
-    augroup
+        opts.group = opts.group or augroup
+        return vim.api.nvim_create_autocmd(event, opts)
+      end,
+      augroup
 end
 
 autocmds.create, autocmds.waves_augroup = autocmds.create_wrapper "waves"
@@ -51,7 +51,7 @@ autocmds.create("DirChanged", {
 -- wrap words "softly" (no carriage return) in mail buffer
 autocmds.create("FileType", {
   pattern = "mail",
-  callback = function ()
+  callback = function()
     vim.opt.textwidth = 0
     vim.opt.wrapmargin = 0
     vim.opt.wrap = true

@@ -3,7 +3,7 @@ local M = {}
 
 function M.setup(opts)
   return map({
-    [{"n"}] = {
+    [{ "n" }] = {
       { "<leader>gk", function()
         require("gitsigns").prev_hunk({ navigation_message = false })
       end, { desc = "Prev Hunk" } },
@@ -24,14 +24,14 @@ function M.setup(opts)
       end, { desc = "Next Hunk" } },
       {
         "<leader>gs", function()
-          require("gitsigns").stage_hunk()
-        end,
+        require("gitsigns").stage_hunk()
+      end,
         { desc = "Stage Hunk" }
       },
       {
         "<leader>gu", function()
-          require("gitsigns").undo_stage_hunk()
-        end,
+        require("gitsigns").undo_stage_hunk()
+      end,
         { desc = "Undo Stage Hunk" }
       },
       {
@@ -52,8 +52,8 @@ function M.setup(opts)
       },
       {
         "<leader>gd", function()
-          vim.cmd("Gitsigns diffthis HEAD")
-        end,
+        vim.cmd("Gitsigns diffthis HEAD")
+      end,
         { desc = "Git Diff HEAD" }
       },
     }

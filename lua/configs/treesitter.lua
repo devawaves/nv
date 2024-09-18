@@ -51,12 +51,12 @@ local opts = {
         ["ip"] = { query = "@parameter.inner", desc = "inside a parameter" },
       },
       selection_modes = {
-        ["@parameter.outer"] = "v", -- charwise
-        ["@parameter.inner"] = "v", -- charwise
-        ["@function.outer"] = "v", -- charwise
+        ["@parameter.outer"] = "v",   -- charwise
+        ["@parameter.inner"] = "v",   -- charwise
+        ["@function.outer"] = "v",    -- charwise
         ["@conditional.outer"] = "V", -- linewise
-        ["@loop.outer"] = "V", -- linewise
-        ["@class.outer"] = "<c-v>", -- blockwise
+        ["@loop.outer"] = "V",        -- linewise
+        ["@class.outer"] = "<c-v>",   -- blockwise
       },
       include_surrounding_whitespace = false,
     },
