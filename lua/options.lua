@@ -118,6 +118,7 @@ o.diffopt = {
 vim.filetype.add({
   extension = {
     env = "dotenv",
+    mdx = "markdown.mdx"
   },
   filename = {
     [".env"] = "dotenv",

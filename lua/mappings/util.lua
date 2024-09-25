@@ -8,12 +8,12 @@ function M.map(keymaps, keymap_opts, opts)
     keymap_opts.silent = true
   end
   for modes, maps in pairs(keymaps) do
-    for _, m in pairs(maps) do
-      local map_opts = vim.tbl_extend("force", keymap_opts, m[3] or {})
+    for _, map in pairs(maps) do
+      local map_opts = vim.tbl_extend("force", keymap_opts, map[3] or {})
       if opts.lazy then
-        table.insert(lazy_keymaps, vim.tbl_extend("force", { m[1], m[2], mode = modes }, map_opts))
+        table.insert(lazy_keymaps, vim.tbl_extend("force", { map[1], map[2], mode = modes }, map_opts))
       else
-        vim.keymap.set(modes, m[1], m[2], map_opts)
+        vim.keymap.set(modes, map[1], map[2], map_opts)
       end
     end
   end

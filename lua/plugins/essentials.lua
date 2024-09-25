@@ -57,4 +57,104 @@ return {
       return conf
     end,
   },
+  {
+    "simrat39/symbols-outline.nvim",
+
+    keys = {
+      {
+        "<leader>fs",
+        ":SymbolsOutline<CR>",
+        mode = "n",
+        desc = "Find Symbols",
+      },
+    },
+
+    config = function(_, opts)
+      require("symbols-outline").setup(opts)
+    end,
+
+    opts = {},
+  },
+  {
+    "danymat/neogen",
+    dependencies = "nvim-treesitter/nvim-treesitter",
+    config = function(_, opts)
+      require("neogen").setup(opts)
+    end,
+
+    opts = {
+      snippet_engine = "luasnip",
+    },
+
+    keys = {
+      {
+        "<leader>cd",
+        "<cmd>lua require('neogen').generate()<CR>",
+        mode = "n",
+        desc = "Generate Base Documentation",
+      },
+    },
+  },
+  {
+    --          DEFINITELY TAKE A LOOK
+    --             IT's AWESOME!!!
+    -- -> https://github.com/CKolkey/ts-node-action <-
+    --
+    -- !!! INTEGRATED WITH BUILT-IN CODE ACTIONS !!!
+    "ckolkey/ts-node-action",
+    dependencies = { "nvim-treesitter" },
+
+    keys = {
+      {
+        "<leader>cs",
+        function()
+          require("ts-node-action").node_action()
+        end,
+        mode = "n",
+        desc = "Treesitter Code Action", -- Actually Node but...
+      },
+    },
+
+    config = function(_, opts)
+      -- Repo says it is not required if not using custom actions
+      require("ts-node-action").setup(opts)
+    end,
+    opts = require("configs.ts").opts,
+  },
+  {                     -- Show lsp signature help when in a function (param info)
+    "ray-x/lsp_signature.nvim",
+    event = "VeryLazy", -- TODO: Add keys to enable as mode
+    opts = {
+      hint_prefix = "",
+    },
+    config = function(_, opts)
+      require("lsp_signature").setup(opts)
+    end,
+  },
+  { -- Folding. The fancy way
+    "kevinhwang91/nvim-ufo",
+
+    -- event = "VeryLazy",
+    keys = require("configs.ufo").keys,
+    dependencies = require("configs.ufo").dependencies,
+    opts = require("configs.ufo").opts,
+
+    config = function(_, opts)
+      require("ufo").setup(opts)
+
+      -- Better UI elements
+      -- vim.o.fillchars = [[eob: ,fold: ,foldopen:,foldsep: ,foldclose:]]
+      -- vim.o.foldcolumn = "3" -- "1" is better
+    end,
+  },
+  {
+    "nvim-neotest/nvim-nio",
+    event = "VeryLazy"
+  },
+  {
+    "pmizio/typescript-tools.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig" },
+    opts = {},
+    event = "LspAttach",
+  }
 }

@@ -18,12 +18,10 @@ return {
   },
   {
     "pwntester/octo.nvim",
-    dependencies = {
-      "nvim-lua/plenary.nvim",
-      "nvim-telescope/telescope.nvim",
-    },
-    cmd = "Octo",
-    config = true,
+    dependencies = require("configs.octo").dependencies,
+    opts = require "configs.octo".opts,
+    keys = require "configs.octo".keys,
+    cmd = require "configs.octo".cmd
   },
   {
     "lewis6991/gitsigns.nvim",
@@ -50,5 +48,22 @@ return {
         desc = "Toggle UndoTree"
       },
     }
+  },
+  {
+    "topaxi/gh-actions.nvim",
+    cmd = "GhActions",
+
+    keys = {
+      { "<leader>ga", "<cmd>GhActions<cr>", desc = "Open Github Actions" },
+    },
+
+    -- optional, you can also install and use `yq` instead.
+    dependencies = { "nvim-lua/plenary.nvim", "MunifTanjim/nui.nvim" },
+
+    config = function(_, opts)
+      require("gh-actions").setup(opts)
+    end,
+
+    opts = {},
   },
 }

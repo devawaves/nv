@@ -3,6 +3,7 @@ local nvopts = require 'nvchad.configs.treesitter'
 local opts = {
   ensure_installed = {
     "vim",
+    "astro",
     "lua",
     "vimdoc",
     "html",

@@ -1,4 +1,15 @@
 return {
+  {
+    "stevearc/dressing.nvim",
+    event = "VeryLazy", -- FIXME: maybe lazy loadable?
+    config = function(_, opts)
+      require("dressing").setup(opts)
+    end,
+    opts = {
+      default_prompt = "❯ ",
+    },
+  },
+
   -- delete buffer
   {
     "famiu/bufdelete.nvim",
@@ -6,7 +17,7 @@ return {
     config = function()
       vim.keymap.set(
         "n",
-        "Q",
+        "<leader>bd",
         ":lua require('bufdelete').bufdelete(0, false)<cr>",
         { noremap = true, silent = true, desc = "Delete buffer" }
       )
@@ -197,7 +208,6 @@ return {
   -- better code annotation
   {
     "danymat/neogen",
-    enabled = false,
     dependencies = {
       "nvim-treesitter/nvim-treesitter",
       "L3MON4D3/LuaSnip",
@@ -211,21 +221,21 @@ return {
     end,
     keys = {
       {
-        "<leader>ng",
+        "<leader>eg",
         function()
           require("neogen").generate()
         end,
         desc = "Generate code annotations",
       },
       {
-        "<leader>nf",
+        "<leader>ef",
         function()
           require("neogen").generate({ type = "func" })
         end,
         desc = "Generate Function Annotation",
       },
       {
-        "<leader>nt",
+        "<leader>et",
         function()
           require("neogen").generate({ type = "type" })
         end,
@@ -262,4 +272,201 @@ return {
   {
     "tpope/vim-sleuth"
   },
+  { -- Minimap
+    "gorbit99/codewindow.nvim",
+    event = "VeryLazy",
+
+    keys = {
+      {
+        "<leader>mo",
+        "codewindow.toggle_minimap()",
+        mode = "n",
+        desc = "Toggle Minimap",
+      },
+      {
+        "<leader>mm",
+        "codewindow.toggle_focus()",
+        mode = "n",
+        desc = "Focus Minimap",
+      },
+    },
+
+    config = function(_, opts)
+      local codewindow = require "codewindow"
+      codewindow.setup(opts)
+      codewindow.apply_default_keybinds()
+    end,
+
+    opts = {
+      show_cursor = false,
+      screen_bounds = "lines",
+      window_border = "none",
+    },
+  },
+  {
+    "debugloop/telescope-undo.nvim",
+
+    keys = {
+      { "<leader>fu", ":Telescope undo<CR>", mode = "n", desc = "Open Undo History" },
+    },
+
+    dependencies = {
+      {
+        "nvim-telescope/telescope.nvim",
+        opts = {
+          extensions = {
+            undo = {
+              side_by_side = true,
+              layout_strategy = "vertical",
+              layout_config = {
+                preview_height = 0.8,
+              },
+            },
+          },
+        },
+      },
+    },
+
+    config = function(_, opts)
+      require("telescope").load_extension "undo"
+    end,
+  },
+  {
+    "rgroli/other.nvim",
+    event = "VeryLazy",
+
+    keys = {
+      {
+        "<leader>sw",
+        "<cmd> Other<CR>",
+        mode = "n",
+        desc = "Switch To Pair File",
+      },
+    },
+
+    config = function(_, opts)
+      -- Iterate opts and add reversed mappings for them marked with reverse = true
+      require("other-nvim").setup(opts)
+    end,
+
+    opts = {
+      mappings = {
+        {
+          pattern = "(.*)/(.*).h$",
+          target = "%1/%2.c",
+        },
+        {
+          pattern = "(.*)/(.*).c$",
+          target = "%1/%2.h",
+        },
+        {
+          pattern = "(.*)/(.*).hpp$",
+          target = "%1/%2.cpp",
+        },
+        {
+          pattern = "(.*)/(.*).cpp$",
+          target = "%1/%2.hpp",
+        },
+        -- {
+        --   pattern = "/src/app/(.*)/.*.html$",
+        --   target = "/src/app/%1/%1.component.ts",
+        --   context = "view",
+        -- },
+        -- {
+        --   pattern = "/src/app/(.*)/.*.ts$",
+        --   target = "/src/app/%1/%1.component.html",
+        --   context = "component",
+        -- },
+        -- {
+        --   pattern = "/src/app/(.*)/.*.spec.ts$",
+        --   target = "/src/app/%1/%1.component.html",
+        --   context = "test",
+        -- },
+      },
+    },
+  },
+  {
+    "ThePrimeagen/refactoring.nvim",
+
+    config = function()
+      require("refactoring").setup({})
+      -- require("telescope").load_extension "refactoring" -- unneeded when dressing.nvim is a thing
+    end,
+    event = "VeryLazy",
+
+    keys = require 'mappings'.setup.refactoring({ lazy = true }),
+  },
+  {
+    'zbirenbaum/copilot.lua',
+    cmd = 'Copilot',
+    event = 'InsertEnter',
+    config = function()
+      require("copilot").setup({})
+    end
+  },
+  {
+    "sourcegraph/sg.nvim",
+    dependencies = { "nvim-lua/plenary.nvim", --[[ "nvim-telescope/telescope.nvim ]] },
+
+    -- If you have a recent version of lazy.nvim, you don't need to add this!
+    -- build = "nvim -l build/init.lua",
+    config = function()
+      require("sg").setup({})
+    end
+  },
+  {
+    "yetone/avante.nvim",
+    event = "VeryLazy",
+    lazy = false,
+    -- version = false, -- set this if you want to always pull the latest change
+    opts = {
+      -- add any opts here
+      provider = "copilot",
+      auto_suggestions_provider = "copilot",
+      behavior = {
+        auto_suggestions = true,
+      },
+      mappings = {
+        suggestion = {
+          accept = "<C-a>"
+        }
+      }
+    },
+    -- if you want to build from source then do `make BUILD_FROM_SOURCE=true`
+    build = ":AvanteBuild source=false",
+    -- build = "powershell -ExecutionPolicy Bypass -File Build.ps1 -BuildFromSource false" -- for windows
+    dependencies = {
+      "stevearc/dressing.nvim",
+      "nvim-lua/plenary.nvim",
+      "MunifTanjim/nui.nvim",
+      --- The below dependencies are optional,
+      "nvim-tree/nvim-web-devicons", -- or echasnovski/mini.icons
+      "zbirenbaum/copilot.lua",      -- for providers='copilot'
+      {
+        -- support for image pasting
+        "HakonHarnes/img-clip.nvim",
+        event = "VeryLazy",
+        opts = {
+          -- recommended settings
+          default = {
+            embed_image_as_base64 = false,
+            prompt_for_file_name = false,
+            drag_and_drop = {
+              insert_mode = true,
+            },
+            -- required for Windows users
+            use_absolute_path = true,
+          },
+        },
+      },
+      {
+        -- Make sure to set this up properly if you have lazy=true
+        'MeanderingProgrammer/render-markdown.nvim',
+        opts = {
+          file_types = { "markdown", "Avante" },
+        },
+        ft = { "markdown", "Avante" },
+      },
+    },
+  }
 }

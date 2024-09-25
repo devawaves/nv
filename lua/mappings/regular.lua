@@ -3,6 +3,12 @@ local fish_style_abbr = require 'mappings.util'.fish_style_abbr
 local M = {}
 
 function M.setup()
+  vim.keymap.del("n", "<leader>b")
+  vim.keymap.del("n", "<leader>x")
+  vim.keymap.del("n", "<leader>e")
+  vim.keymap.del("n", "<leader>fm")
+  vim.keymap.del("n", "<leader>h")
+  vim.keymap.del("n", "<leader>v")
   local autoindent = function(key)
     return function()
       return not vim.api.nvim_get_current_line():match "%g" and "cc" or key
@@ -11,27 +17,37 @@ function M.setup()
   local noresilent = { noremap = true, silent = true }
   map({
     [{ "n" }] = {
-      { ";",          ":",                         { desc = "CMD enter command mode" } },
+      { ";",          ":",                                                            { desc = "CMD enter command mode" } },
       -- autoindent on insert/append
-      { "I",          autoindent "I",              { expr = true } },
-      { "i",          autoindent "i",              { expr = true } },
-      { "A",          autoindent "A",              { expr = true } },
-      { "a",          autoindent "a",              { expr = true } },
+      { "I",          autoindent "I",                                                 { expr = true } },
+      { "i",          autoindent "i",                                                 { expr = true } },
+      { "A",          autoindent "A",                                                 { expr = true } },
+      { "a",          autoindent "a",                                                 { expr = true } },
       { "x",          '"_dl' },
       { "X",          '"_dh' },
-      { "k",          "v:count == 0 ? 'gk' : 'k'", { expr = true } },
-      { "j",          "v:count == 0 ? 'gj' : 'j'", { expr = true } },
-      { "<C-d>",      "<C-d>zz",                   noresilent },
-      { "<C-u>",      "<C-u>zz",                   noresilent },
-      { "YY",         "va{Vy",                     noresilent },
-      { "n",          "nzz",                       noresilent },
-      { "N",          "Nzz",                       noresilent },
-      { "*",          "*zz",                       noresilent },
-      { "#",          "#zz",                       noresilent },
-      { "g*",         "g*zz",                      noresilent },
-      { "g#",         "g#zz",                      noresilent },
-      { "<C-n>",      ":w %:h/",                   noresilent },
-      { "<leader>gs", "<cmd>Neogit<CR>",           { desc = "Open Neogit" } },
+      { "k",          "v:count == 0 ? 'gk' : 'k'",                                    { expr = true } },
+      { "j",          "v:count == 0 ? 'gj' : 'j'",                                    { expr = true } },
+      { "<C-d>",      "<C-d>zz",                                                      noresilent },
+      { "<C-u>",      "<C-u>zz",                                                      noresilent },
+      { "YY",         "va{Vy",                                                        noresilent },
+      { "n",          "nzz",                                                          noresilent },
+      { "N",          "Nzz",                                                          noresilent },
+      { "*",          "*zz",                                                          noresilent },
+      { "#",          "#zz",                                                          noresilent },
+      { "g*",         "g*zz",                                                         noresilent },
+      { "g#",         "g#zz",                                                         noresilent },
+      { "<C-n>",      ":w %:h/",                                                      noresilent },
+      { "<leader>gs", "<cmd>Neogit<CR>",                                              { desc = "Open Neogit" } },
+      { "<leader>bn", "<cmd>enew<cr>",                                                { desc = "new buffer" } },
+      { "<leader>ee", "<cmd>NvimTreeFocus<cr>",                                       { desc = "focus nvimtree" } },
+      { "<leader>et", "<cmd>NvimTreeToggle<cr>",                                      { desc = "toggle nvimtree" } },
+      { "<leader>er", "<cmd>NvimTreeRefresh<cr>",                                     { desc = "refresh nvimtree" } },
+      { "<leader>es", "<cmd>lua require('luasnip.loaders').edit_snippet_files()<cr>", { desc = "edit snippets" } },
+      { "<leader>rf", function() require("conform").format { lsp_fallback = true } end, { desc = "General Format file" } },
+      { "<C-M-h>", ":vert resize +2<CR>", noresilent},
+      { "<C-M-j>", ":resize -2<CR>", noresilent},
+      { "<C-M-k>", ":resize +2<CR>", noresilent},
+      { "<C-M-l>", ":vert resize -2<CR>", noresilent},
       {
         "<leader>tc",
         function()
@@ -97,8 +113,11 @@ function M.setup()
         end,
         { expr = true },
       },
-      { "<leader>fq", vim.cmd.bdelete, { desc = "quit file" } },
-      { "<leader>fs", "<cmd>w<cr>",    { desc = "save file" } },
+      { "<leader>qf", vim.cmd.bdelete,   { desc = "quit file" } },
+      { "<leader>qq", "<cmd>qa<cr>",     { desc = "quit editor" } },
+      { "<leader>qQ", "<cmd>qa!<cr>",    { desc = "force quit editor" } },
+      { "<leader>ww", "<cmd>w ++p<cr>",  { desc = "save file" } },
+      { "<leader>wq", "<cmd>wq ++p<cr>", { desc = "write and quit" } },
     },
     [{ "n", "v" }] = {
       { "p", "p=`]", { remap = true } },
